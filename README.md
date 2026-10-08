@@ -1,6 +1,6 @@
 # ANN Customer Churn Prediction
 
-[![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)]([YOUR_STREAMLIT_APP_URL](https://ann-classification-churn-jfott3cmp8fqhtfgtmnifo.streamlit.app/))
+[![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)]((https://ann-classification-churn-jfott3cmp8fqhtfgtmnifo.streamlit.app/))
 
 🔗 **Live Demo:** [Customer Churn Prediction App](https://ann-classification-churn-jfott3cmp8fqhtfgtmnifo.streamlit.app/)
 
