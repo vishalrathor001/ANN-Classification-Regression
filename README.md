@@ -1,8 +1,8 @@
 # ANN Customer Churn Prediction
 
-[![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](YOUR_STREAMLIT_APP_URL)
+[![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)]([YOUR_STREAMLIT_APP_URL](https://ann-classification-churn-jfott3cmp8fqhtfgtmnifo.streamlit.app/))
 
-🔗 **Live Demo:** [Customer Churn Prediction App](YOUR_STREAMLIT_APP_URL)
+🔗 **Live Demo:** [Customer Churn Prediction App](https://ann-classification-churn-jfott3cmp8fqhtfgtmnifo.streamlit.app/)
 
 An Artificial Neural Network (ANN) based machine learning application that predicts whether a bank customer is likely to churn. The trained model is integrated with a Streamlit web application to provide an interactive customer churn prediction interface.
 
@@ -175,7 +175,7 @@ The application can be deployed using Streamlit Community Cloud directly from th
 
 ## Author
 
-Vishal Rathor
+Vishal Kumar
 
 ## Purpose
 
