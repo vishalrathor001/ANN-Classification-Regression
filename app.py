@@ -101,6 +101,7 @@ geo_encoded_df = pd.DataFrame(
 )
 
 
+
 # -----------------------------------
 # Classification prediction
 # -----------------------------------
@@ -109,47 +110,47 @@ if prediction_type == "Classification - Customer Churn":
     st.subheader("Customer Churn Prediction")
 
     estimated_salary = st.number_input(
-        "Estimated Salary", min_value=0.0, value=50000.0
+        "Estimated Salary",
+        min_value=0.0,
+        value=50000.0
     )
 
-    if st.button("Predict Churn", type="primary"):
+    input_data = pd.DataFrame({
+        "CreditScore": [credit_score],
+        "Gender": [gender_encoded],
+        "Age": [age],
+        "Tenure": [tenure],
+        "Balance": [balance],
+        "NumOfProducts": [num_of_products],
+        "HasCrCard": [has_cr_card],
+        "IsActiveMember": [is_active_member],
+        "EstimatedSalary": [estimated_salary],
+    })
 
-        input_data = pd.DataFrame({
-            "CreditScore": [credit_score],
-            "Gender": [gender_encoded],
-            "Age": [age],
-            "Tenure": [tenure],
-            "Balance": [balance],
-            "NumOfProducts": [num_of_products],
-            "HasCrCard": [has_cr_card],
-            "IsActiveMember": [is_active_member],
-            "EstimatedSalary": [estimated_salary],
-        })
+    input_data = pd.concat(
+        [input_data, geo_encoded_df],
+        axis=1
+    )
 
-        input_data = pd.concat(
-            [input_data, geo_encoded_df],
-            axis=1
-        )
+    input_scaled = classification_scaler.transform(input_data)
+    prediction = classification_model.predict(
+        input_scaled, verbose=0
+    )
 
-        # Use the classification scaler only
-        input_scaled = classification_scaler.transform(input_data)
+    churn_probability = float(prediction[0][0])
 
-        prediction = classification_model.predict(
-            input_scaled, verbose=0
-        )
+    st.metric("Churn Probability", f"{churn_probability:.2%}")
 
-        churn_probability = float(prediction[0][0])
+    if churn_probability >= 0.5:
+        st.error("The customer is likely to churn.")
+    else:
+        st.success("The customer is not likely to churn.")
 
-        st.metric(
-            "Churn Probability",
-            f"{churn_probability:.2%}"
-        )
 
-        if churn_probability >= 0.5:
-            st.error("The customer is likely to churn.")
-        else:
-            st.success("The customer is not likely to churn.")
 
+# -----------------------------------
+# Regression prediction
+# -----------------------------------
 
 # -----------------------------------
 # Regression prediction
@@ -162,35 +163,32 @@ else:
         "Has the Customer Exited?", [0, 1]
     )
 
-    if st.button("Predict Salary", type="primary"):
+    input_data = pd.DataFrame({
+        "CreditScore": [credit_score],
+        "Gender": [gender_encoded],
+        "Age": [age],
+        "Tenure": [tenure],
+        "Balance": [balance],
+        "NumOfProducts": [num_of_products],
+        "HasCrCard": [has_cr_card],
+        "IsActiveMember": [is_active_member],
+        "Exited": [exited],
+    })
 
-        input_data = pd.DataFrame({
-            "CreditScore": [credit_score],
-            "Gender": [gender_encoded],
-            "Age": [age],
-            "Tenure": [tenure],
-            "Balance": [balance],
-            "NumOfProducts": [num_of_products],
-            "HasCrCard": [has_cr_card],
-            "IsActiveMember": [is_active_member],
-            "Exited": [exited],
-        })
+    input_data = pd.concat(
+        [input_data, geo_encoded_df],
+        axis=1
+    )
 
-        input_data = pd.concat(
-            [input_data, geo_encoded_df],
-            axis=1
-        )
+    input_scaled = regression_scaler.transform(input_data)
+    prediction = regression_model.predict(
+        input_scaled, verbose=0
+    )
 
-        # Use the regression scaler only
-        input_scaled = regression_scaler.transform(input_data)
+    predicted_salary = float(prediction[0][0])
 
-        prediction = regression_model.predict(
-            input_scaled, verbose=0
-        )
+    st.metric(
+        "Predicted Estimated Salary",
+        f"${predicted_salary:,.2f}"
+    )
 
-        predicted_salary = float(prediction[0][0])
-
-        st.metric(
-            "Predicted Estimated Salary",
-            f"${predicted_salary:,.2f}"
-        )
